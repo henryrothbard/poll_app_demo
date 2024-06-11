@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    ports:
+      - "${PORT}:3000"
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    command: mongod --quiet --logpath /dev/null
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
