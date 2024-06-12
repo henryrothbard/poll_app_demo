@@ -41,7 +41,7 @@ router.post('/register', asyncHandler(async (req, res) => {
 }));
 
 router.get('/test', (req, res) => {
-  if (!req.session.username) res.status(401).send('Unauthorized');
+  if (!req.session.username) return res.status(401).send('Unauthorized');
   res.send(req.session);
 });
 
