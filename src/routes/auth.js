@@ -30,20 +30,11 @@ router.post('/register', asyncHandler(async (req, res) => {
     const username = req.body.username.toLowerCase();
     const password = req.body.password;
 
-    if (!userRegex.test(username)) {
-        res.status(400).send('Invalid Username');
-        return;
-    }
-    if (!passRegex.test(password)) {
-        res.status(400).send('Invalid Password');
-        return;
-    }
+    if (!userRegex.test(username)) return res.status(400).send('Invalid Username');
+    if (!passRegex.test(password)) return res.status(400).send('Invalid Password');
 
     const user = await userModel.findOne({ username: username });
-    if (user) {
-        res.status(400).send('User already exists');
-        return;
-    }
+    if (user) return res.status(400).send('User already exists');
 
     await userModel.create({ username, password });
     res.status(200).send({username, password});
