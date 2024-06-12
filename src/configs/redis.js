@@ -41,7 +41,7 @@ class Client {
             const authHeader = req.get('Authorization');
             if (!authHeader) return next();
             const [username, id] = authHeader.split(" ");
-            if (await this.client.get(id) === username) {
+            if (id && await this.client.get(id) === username) {
                 const newId = await this.updateSessionId(id);
                 res.set({ 'Authorization' : `${username} ${newId}` });
                 req.session = {username: username, id: newId};
