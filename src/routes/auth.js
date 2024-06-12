@@ -16,7 +16,7 @@ router.post('/login', asyncHandler(async (req, res) => {
   if (user && await user.verifyPassword(password)) {
     const token = await redis.newSession(username);
     res.set({ 'Authorization' : `${username} ${token}` });
-    res.status(204).send();
+    return res.status(204).send();
   }
   res.status(401).send('Invalid username or password');
 }));
